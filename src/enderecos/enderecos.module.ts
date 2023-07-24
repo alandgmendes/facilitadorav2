@@ -1,12 +1,12 @@
 import { Module } from '@nestjs/common';
-import { UsersService } from './users.service';
-import { UsersRepository } from './users.repository';
+import { EnderecosService } from './enderecos.service';
+import { EnderecosRepository } from './enderecos.repository';
 import { ConfigModule } from '@nestjs/config';
 import * as Joi from 'joi';
 import { DatabaseModule } from '@app/common/database/database.module';
 import { MongooseModule } from '@nestjs/mongoose';
-import { UserSchema } from './schemas/user.schema';
-import { UserController } from './user.controller';
+import { Endereco, EnderecoSchema } from './entities/endereco.schema';
+import { EnderecosController } from './enderecos.controller';
 
 @Module({
   imports: [
@@ -19,10 +19,10 @@ import { UserController } from './user.controller';
       envFilePath: './.env',
     }),
     DatabaseModule,
-    MongooseModule.forFeature([{ name: 'User', schema: UserSchema }]),
+    MongooseModule.forFeature([{ name: 'Endereco', schema: EnderecoSchema }]),
   ],
-  providers: [UsersService, UsersRepository],
-  controllers: [UserController],
-  exports: [UsersService],
+  providers: [EnderecosService, EnderecosRepository],
+  controllers: [EnderecosController],
+  exports: [EnderecosService],
 })
-export class UsersModule {}
+export class EnderecosModule {}

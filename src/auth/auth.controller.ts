@@ -6,6 +6,7 @@ import {
   HttpStatus,
   Post,
   Request,
+  Param,
   UseGuards,
 } from '@nestjs/common';
 import { AuthGuard } from './auth.guard';
@@ -18,13 +19,14 @@ export class AuthController {
   @HttpCode(HttpStatus.OK)
   @Post('login')
   signIn(@Body() signInDto: Record<string, any>) {
-    return this.authService.signIn(signInDto.username, signInDto.password);
+    return this.authService.signIn(signInDto.email, signInDto.senha);
   }
 
   @UseGuards(AuthGuard)
-  @Get('profile')
-  getProfile(@Request() req: any) {
-    return req.user;
+  @Get(':id')
+  getProfile(@Param() params: any): string {
+    console.log(params.id);
+    return `This action returns a #${params.id} cat`;
   }
 }
 //git test
