@@ -14,4 +14,13 @@ export class UsersRepository extends AbstractRepository<User> {
   ) {
     super(orderModel, connection);
   }
+
+  async findUserByEmail(email: string): Promise<User> {
+    try {
+      const user = await this.findOne({ email });
+      return user;
+    } catch (error) {
+      throw error;
+    }
+  }
 }
