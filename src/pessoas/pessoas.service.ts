@@ -10,6 +10,10 @@ export class PessoasService {
     return this.pessoaRepository.create(createPessoaDto);
   }
 
+  findPessoaByMail(email: string) {
+    return this.pessoaRepository.findPessoaByEmail(email);
+  }
+
   findAll() {
     return `This action returns all pessoas`;
   }

@@ -14,4 +14,12 @@ export class PessoasRepository extends AbstractRepository<Pessoa> {
   ) {
     super(pessoaModel, connection);
   }
+  async findPessoaByEmail(email: string): Promise<Pessoa> {
+    try {
+      const pessoa = await this.findOne({ email });
+      return pessoa;
+    } catch (error) {
+      throw error;
+    }
+  }
 }

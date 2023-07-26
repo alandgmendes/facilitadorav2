@@ -7,9 +7,11 @@ import { DatabaseModule } from '@app/common/database/database.module';
 import { MongooseModule } from '@nestjs/mongoose';
 import { UserSchema } from './schemas/user.schema';
 import { UserController } from './user.controller';
+import { PessoasModule } from 'src/pessoas/pessoas.module';
 
 @Module({
   imports: [
+    PessoasModule,
     ConfigModule.forRoot({
       isGlobal: true,
       validationSchema: Joi.object({

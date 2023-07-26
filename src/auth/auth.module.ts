@@ -6,10 +6,12 @@ import { AuthController } from './auth.controller';
 import { jwtConstants } from './constants';
 import { DatabaseModule } from '@app/common';
 import { ConfigModule } from '@nestjs/config';
+import { PessoasModule } from 'src/pessoas/pessoas.module';
 
 @Module({
   imports: [
     UsersModule,
+    PessoasModule,
     DatabaseModule,
     ConfigModule,
     JwtModule.register({
