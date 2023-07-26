@@ -23,6 +23,6 @@ import { EnderecosController } from './enderecos.controller';
   ],
   providers: [EnderecosService, EnderecosRepository],
   controllers: [EnderecosController],
-  exports: [EnderecosService],
+  exports: [EnderecosService, EnderecosRepository],
 })
 export class EnderecosModule {}

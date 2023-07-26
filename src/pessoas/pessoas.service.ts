@@ -2,12 +2,30 @@ import { Injectable } from '@nestjs/common';
 import { CreatePessoaDto } from './dto/create-pessoa.dto';
 import { UpdatePessoaDto } from './dto/update-pessoa.dto';
 import { PessoasRepository } from './pessoas.repository';
+import { EnderecosRepository } from 'src/enderecos/enderecos.repository';
 
 @Injectable()
 export class PessoasService {
-  constructor(public readonly pessoaRepository: PessoasRepository) {}
-  create(createPessoaDto: CreatePessoaDto) {
-    return this.pessoaRepository.create(createPessoaDto);
+  constructor(
+    public readonly pessoaRepository: PessoasRepository,
+    private readonly enderecoRepository: EnderecosRepository,
+  ) {}
+  async create(createPessoaDto: CreatePessoaDto) {
+    console.log(createPessoaDto);
+    const enderecoPessoa = createPessoaDto.endereco;
+    const newEnderecoResult = await this.enderecoRepository.upsert(
+      enderecoPessoa,
+      enderecoPessoa,
+    );
+    console.log(newEnderecoResult);
+    const pessoadata = {
+      nome: createPessoaDto.nome,
+      email: createPessoaDto.email,
+      dataNascimento: createPessoaDto.dataNascimento,
+      cpf: createPessoaDto.cpf,
+      criadoEm: createPessoaDto.criadoEm,
+    };
+    return 'ok';
   }
 
   findPessoaByMail(email: string) {

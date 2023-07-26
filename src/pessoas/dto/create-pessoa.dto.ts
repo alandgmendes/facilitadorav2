@@ -1,14 +1,16 @@
 export class CreatePessoaDto {
-  nome: string;
   cpf: string;
-  telefone: string;
-  dataNascimento: Date;
+  criadoEm: Date;
+  dataNascimento: string;
   email: string;
-  logradouro: string;
-  numero: string;
-  bairro: string;
-  cep: string;
-  cidade: string;
-  estado: string;
-  areaAtuacao: string;
+  endereco: {
+    bairro: string;
+    cep: string;
+    cidade: string;
+    estado: string;
+    logradouro: string;
+    numero: string;
+  };
+  nome: string;
+  telefone: string;
 }

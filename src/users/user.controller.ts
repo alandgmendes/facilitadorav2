@@ -13,7 +13,6 @@ import { AuthGuard } from 'src/auth/auth.guard';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dtos/create_user.dto';
 import { User } from './schemas/user.schema';
-import { FilterQuery } from 'mongoose';
 
 @Controller('user')
 export class UserController {

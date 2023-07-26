@@ -12,7 +12,7 @@ export class EnderecosService {
   }
 
   findAll() {
-    return `This action returns all enderecos`;
+    return this.enderecoRepository.find({});
   }
 
   findCepData(cep: string) {

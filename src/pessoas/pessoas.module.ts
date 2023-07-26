@@ -7,9 +7,12 @@ import { DatabaseModule } from '@app/common/database/database.module';
 import { MongooseModule } from '@nestjs/mongoose';
 import { PessoaSchema } from './entities/pessoa.schema';
 import { PessoasController } from './pessoas.controller';
+import { EnderecosModule } from 'src/enderecos/enderecos.module';
+import { EnderecoSchema } from 'src/enderecos/entities/endereco.schema';
 
 @Module({
   imports: [
+    EnderecosModule,
     ConfigModule.forRoot({
       isGlobal: true,
       validationSchema: Joi.object({
@@ -19,7 +22,10 @@ import { PessoasController } from './pessoas.controller';
       envFilePath: './.env',
     }),
     DatabaseModule,
-    MongooseModule.forFeature([{ name: 'Pessoa', schema: PessoaSchema }]),
+    MongooseModule.forFeature([
+      { name: 'Pessoa', schema: PessoaSchema },
+      { name: 'Endereco', schema: EnderecoSchema },
+    ]),
   ],
   providers: [PessoasService, PessoasRepository],
   controllers: [PessoasController],

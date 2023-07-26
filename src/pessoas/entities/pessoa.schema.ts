@@ -1,6 +1,7 @@
 import { Schema, Prop, SchemaFactory } from '@nestjs/mongoose';
 import { AbstractDocument } from '@app/common';
 import { Document, Model } from 'mongoose';
+import { ObjectId } from 'mongoose';
 
 @Schema({ versionKey: false })
 export class Pessoa extends AbstractDocument {
@@ -39,6 +40,9 @@ export class Pessoa extends AbstractDocument {
 
   @Prop()
   areaAtuacao: string;
+
+  @Prop()
+  enderecoId: ObjectId;
 }
 
 export const PessoaSchema = SchemaFactory.createForClass(Pessoa);
