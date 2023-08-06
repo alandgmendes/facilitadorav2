@@ -23,6 +23,7 @@ export class UserController {
   @Get(':email')
   getProfile(@Param() params: any): Promise<User[] | undefined> {
     const email = params.email;
+    console.log(email);
     return this.userService.acharTodos();
   }
 

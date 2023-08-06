@@ -11,11 +11,11 @@ import { EnderecosService } from './enderecos.service';
 import { CreateEnderecoDto } from './dto/create-endereco.dto';
 import { UpdateEnderecoDto } from './dto/update-endereco.dto';
 
-@Controller('enderecos')
+@Controller('endereco')
 export class EnderecosController {
   constructor(private readonly enderecosService: EnderecosService) {}
 
-  @Post()
+  @Post('/register')
   create(@Body() createEnderecoDto: CreateEnderecoDto) {
     return this.enderecosService.createNew(createEnderecoDto);
   }

@@ -15,4 +15,4 @@ export class User extends AbstractDocument {
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);
-export type UserModel = Model<User & Document>;
+export const UserModel = Model<User & Document>;

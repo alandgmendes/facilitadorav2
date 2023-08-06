@@ -25,7 +25,6 @@ export class AuthController {
   @UseGuards(AuthGuard)
   @Get(':id')
   getProfile(@Param() params: any): string {
-    console.log(params.id);
     return `This action returns a #${params.id} cat`;
   }
 }

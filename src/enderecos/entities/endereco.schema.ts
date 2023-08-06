@@ -24,4 +24,4 @@ export class Endereco extends AbstractDocument {
 }
 
 export const EnderecoSchema = SchemaFactory.createForClass(Endereco);
-export type EnderecoModel = Model<Endereco & Document>;
+export const EnderecoModel = Model<Endereco & Document>;

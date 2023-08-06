@@ -11,7 +11,7 @@ import { PessoasService } from './pessoas.service';
 import { CreatePessoaDto } from './dto/create-pessoa.dto';
 import { UpdatePessoaDto } from './dto/update-pessoa.dto';
 
-@Controller('pessoas')
+@Controller('pessoa')
 export class PessoasController {
   constructor(private readonly pessoasService: PessoasService) {}
 
@@ -28,6 +28,11 @@ export class PessoasController {
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.pessoasService.findOne(+id);
+  }
+
+  @Get('/cpfcheck/:cpf')
+  findOneByCpf(@Param('cpf') cpf: string) {
+    return this.pessoasService.findByCpf(cpf);
   }
 
   @Patch(':id')

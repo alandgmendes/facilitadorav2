@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { CreatePessoaDto } from './dto/create-pessoa.dto';
 import { UpdatePessoaDto } from './dto/update-pessoa.dto';
 import { PessoasRepository } from './pessoas.repository';
-import { EnderecosRepository } from 'src/enderecos/enderecos.repository';
+import { EnderecosRepository } from '../enderecos/enderecos.repository';
 
 @Injectable()
 export class PessoasService {
@@ -11,7 +11,6 @@ export class PessoasService {
     private readonly enderecoRepository: EnderecosRepository,
   ) {}
   async create(createPessoaDto: CreatePessoaDto) {
-    console.log(createPessoaDto);
     const enderecoPessoa = createPessoaDto.endereco;
     const newEnderecoResult = await this.enderecoRepository.upsert(
       enderecoPessoa,
@@ -25,7 +24,11 @@ export class PessoasService {
       cpf: createPessoaDto.cpf,
       criadoEm: createPessoaDto.criadoEm,
     };
-    return 'ok';
+    const newPessoa = await this.pessoaRepository.upsert(
+      pessoadata,
+      pessoadata,
+    );
+    return { novaPessoa: newPessoa };
   }
 
   findPessoaByMail(email: string) {
@@ -46,5 +49,9 @@ export class PessoasService {
 
   remove(id: number) {
     return `This action removes a #${id} pessoa`;
+  }
+
+  findByCpf(cpf: string) {
+    return this.pessoaRepository.findPessoaByCpf(cpf);
   }
 }

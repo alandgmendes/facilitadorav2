@@ -22,4 +22,13 @@ export class PessoasRepository extends AbstractRepository<Pessoa> {
       throw error;
     }
   }
+
+  async findPessoaByCpf(cpf: string): Promise<Pessoa> {
+    try {
+      const pessoa = await this.findOne({ cpf });
+      return pessoa;
+    } catch (error) {
+      throw error;
+    }
+  }
 }

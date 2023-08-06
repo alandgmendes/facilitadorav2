@@ -1,7 +1,7 @@
 export class CreatePessoaDto {
   cpf: string;
   criadoEm: Date;
-  dataNascimento: string;
+  dataNascimento: Date;
   email: string;
   endereco: {
     bairro: string;

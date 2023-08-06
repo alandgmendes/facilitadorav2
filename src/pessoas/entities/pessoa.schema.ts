@@ -1,8 +1,9 @@
 import { Schema, Prop, SchemaFactory } from '@nestjs/mongoose';
 import { AbstractDocument } from '@app/common';
+import mongoose from 'mongoose';
 import { Document, Model } from 'mongoose';
-import { ObjectId } from 'mongoose';
-
+export type TObjectId = mongoose.ObjectId;
+export const ObjectId = mongoose.Types.ObjectId;
 @Schema({ versionKey: false })
 export class Pessoa extends AbstractDocument {
   @Prop()
@@ -21,29 +22,14 @@ export class Pessoa extends AbstractDocument {
   email: string;
 
   @Prop()
-  logradouro: string;
-
-  @Prop()
-  numero: string;
-
-  @Prop()
-  bairro: string;
-
-  @Prop()
-  cep: string;
-
-  @Prop()
-  cidade: string;
-
-  @Prop()
-  estado: string;
-
-  @Prop()
   areaAtuacao: string;
 
+  @Prop({ type: ObjectId })
+  enderecoId: TObjectId;
+
   @Prop()
-  enderecoId: ObjectId;
+  criadoEm: Date;
 }
 
 export const PessoaSchema = SchemaFactory.createForClass(Pessoa);
-export type PessoaModel = Model<Pessoa & Document>;
+export const PessoaModel = Model<Pessoa & Document>;
