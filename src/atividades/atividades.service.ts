@@ -1,26 +1,38 @@
 import { Injectable } from '@nestjs/common';
 import { CreateAtividadeDto } from './dto/create-atividade.dto';
 import { UpdateAtividadeDto } from './dto/update-atividade.dto';
+import { Atividade } from './entities/atividade.schema';
+import { AtividadesRepository } from './atividades.repository';
+import { CronogramaRepository } from 'src/cronogramas/cronogramas.repository';
+import { FilterQuery } from 'mongoose';
 
 @Injectable()
 export class AtividadesService {
-  create(createAtividadeDto: CreateAtividadeDto) {
-    return 'This action adds a new atividade';
+  constructor(
+    public readonly atividadesRepository: AtividadesRepository,
+    public readonly cronogramaRepository: CronogramaRepository,
+  ) {}
+  create(createAtividadeDto: CreateAtividadeDto): Promise<Atividade> {
+    return this.atividadesRepository.create(createAtividadeDto);
   }
 
-  findAll() {
-    return `This action returns all atividades`;
+  findOne(id: string): Promise<Atividade> {
+    return this.atividadesRepository.findOne({ id });
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} atividade`;
+  async update(
+    id: string,
+    updateAtividadeDto: UpdateAtividadeDto,
+  ): Promise<Atividade> {
+    const filterQuery: FilterQuery<Atividade> = { _id: id };
+    return this.atividadesRepository.upsert(filterQuery, updateAtividadeDto);
   }
 
-  update(id: number, updateAtividadeDto: UpdateAtividadeDto) {
-    return `This action updates a #${id} atividade`;
+  deleteAtividade(id: string): any {
+    return this.atividadesRepository.remove({ id });
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} atividade`;
+  findAtividadesByCronogramaId(cronogramaId: string): Promise<Atividade[]> {
+    return this.atividadesRepository.findAtividadesByCronogramaId(cronogramaId);
   }
 }

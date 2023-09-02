@@ -1,13 +1,10 @@
 import { Schema, Prop, SchemaFactory } from '@nestjs/mongoose';
 import { AbstractDocument } from '@app/common';
-import mongoose from 'mongoose';
 import { Document, Model } from 'mongoose';
-export type TObjectId = mongoose.ObjectId;
-export const ObjectId = mongoose.Types.ObjectId;
 @Schema({ versionKey: false })
 export class Atividade extends AbstractDocument {
-  @Prop({ type: ObjectId })
-  cronogramaId: TObjectId;
+  @Prop()
+  cronogramaId: string;
 
   @Prop()
   atividade: string;
@@ -16,7 +13,10 @@ export class Atividade extends AbstractDocument {
   descricaoAtividade: string;
 
   @Prop()
-  periodo: string;
+  periodoInicial: string;
+
+  @Prop()
+  periodoFinal: string;
 
   @Prop()
   criadoEm: Date;

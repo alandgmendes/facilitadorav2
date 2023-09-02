@@ -30,9 +30,9 @@ export class CronogramasController {
     return this.cronogramasService.findOne(+id);
   }
 
-  @Get(':projectId')
-  findCronogramByProjectId(@Param('id') projectId: string) {
-    return this.cronogramasService.findByProjetId(projectId);
+  @Get('/projeto/:projectId')
+  findCronogramaByProjectId(@Param('id') projectId: string) {
+    return this.cronogramasService.findByProjectId(projectId);
   }
 
   @Patch(':id')

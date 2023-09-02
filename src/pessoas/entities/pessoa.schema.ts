@@ -29,6 +29,12 @@ export class Pessoa extends AbstractDocument {
 
   @Prop()
   criadoEm: Date;
+
+  @Prop()
+  modificadoEm: Date;
+
+  @Prop()
+  acessadoEm: Date;
 }
 
 export const PessoaSchema = SchemaFactory.createForClass(Pessoa);

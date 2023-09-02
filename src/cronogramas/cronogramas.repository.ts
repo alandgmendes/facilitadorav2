@@ -14,9 +14,9 @@ export class CronogramaRepository extends AbstractRepository<Cronograma> {
   ) {
     super(cronogramaModel, connection);
   }
-  async findCronogramaByUProjectId(projetoId: string): Promise<Cronograma> {
+  async findCronogramaByProjectId(projetoId: string): Promise<Cronograma> {
     try {
-      const cronograma = await this.findOne({ projetoId });
+      const cronograma = await this.findOne({ projetoId: projetoId });
       return cronograma;
     } catch (error) {
       throw error;

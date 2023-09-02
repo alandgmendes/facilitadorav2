@@ -20,14 +20,10 @@ export class AtividadesController {
     return this.atividadesService.create(createAtividadeDto);
   }
 
-  @Get()
-  findAll() {
-    return this.atividadesService.findAll();
-  }
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.atividadesService.findOne(+id);
+    return this.atividadesService.findOne(id);
   }
 
   @Patch(':id')
@@ -35,11 +31,16 @@ export class AtividadesController {
     @Param('id') id: string,
     @Body() updateAtividadeDto: UpdateAtividadeDto,
   ) {
-    return this.atividadesService.update(+id, updateAtividadeDto);
+    return this.atividadesService.update(id, updateAtividadeDto);
+  }
+
+  @Get('/lista/:cronogramaId')
+  findByCronograma(@Param('id') id: string) {
+    return this.atividadesService.findAtividadesByCronogramaId(id);
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.atividadesService.remove(+id);
+    return this.atividadesService.deleteAtividade(id);
   }
 }

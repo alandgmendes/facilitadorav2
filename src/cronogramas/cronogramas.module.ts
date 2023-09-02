@@ -7,6 +7,9 @@ import { CronogramasService } from './cronogramas.service';
 import { CronogramasController } from './cronogramas.controller';
 import { CronogramaSchema } from './entities/cronograma.schema';
 import { CronogramaRepository } from './cronogramas.repository';
+import { ProjetoRepository } from 'src/projetos/projetos.repository';
+import { ProjetosService } from 'src/projetos/projetos.service';
+import { ProjetoSchema } from 'src/projetos/entities/projeto.entity';
 
 @Module({
   imports: [
@@ -21,9 +24,15 @@ import { CronogramaRepository } from './cronogramas.repository';
     DatabaseModule,
     MongooseModule.forFeature([
       { name: 'Cronograma', schema: CronogramaSchema },
+      { name: 'Projeto', schema: ProjetoSchema },
     ]),
   ],
   controllers: [CronogramasController],
-  providers: [CronogramasService, CronogramaRepository],
+  providers: [
+    CronogramasService,
+    CronogramaRepository,
+    ProjetosService,
+    ProjetoRepository,
+  ],
 })
 export class CronogramasModule {}

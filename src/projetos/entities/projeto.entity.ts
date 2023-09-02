@@ -7,9 +7,6 @@ export const ObjectId = mongoose.Types.ObjectId;
 @Schema({ versionKey: false })
 export class Projeto extends AbstractDocument {
   @Prop()
-  criadoEm: Date;
-
-  @Prop()
   titulo?: string;
 
   @Prop()
@@ -41,6 +38,15 @@ export class Projeto extends AbstractDocument {
 
   @Prop()
   userId: string;
+  
+  @Prop()
+  criadoEm: Date;
+
+  @Prop()
+  modificadoEm: Date;
+
+  @Prop()
+  acessadoEm: Date;
 }
 
 export const ProjetoSchema = SchemaFactory.createForClass(Projeto);

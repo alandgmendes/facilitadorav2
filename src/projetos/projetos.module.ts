@@ -7,6 +7,9 @@ import { ProjetosService } from './projetos.service';
 import { ProjetosController } from './projetos.controller';
 import { ProjetoSchema } from './entities/projeto.entity';
 import { ProjetoRepository } from './projetos.repository';
+import { CronogramasService } from 'src/cronogramas/cronogramas.service';
+import { CronogramaRepository } from 'src/cronogramas/cronogramas.repository';
+import { CronogramaSchema } from 'src/cronogramas/entities/cronograma.schema';
 
 @Module({
   imports: [
@@ -19,9 +22,17 @@ import { ProjetoRepository } from './projetos.repository';
       envFilePath: './.env',
     }),
     DatabaseModule,
-    MongooseModule.forFeature([{ name: 'Projeto', schema: ProjetoSchema }]),
+    MongooseModule.forFeature([
+      { name: 'Projeto', schema: ProjetoSchema },
+      { name: 'Cronograma', schema: CronogramaSchema },
+    ]),
   ],
   controllers: [ProjetosController],
-  providers: [ProjetosService, ProjetoRepository],
+  providers: [
+    ProjetosService,
+    ProjetoRepository,
+    CronogramasService,
+    CronogramaRepository,
+  ],
 })
 export class ProjetosModule {}

@@ -21,9 +21,26 @@ export abstract class AbstractRepository<TDocument extends AbstractDocument> {
     document: Omit<TDocument, '_id'>,
     options?: SaveOptions,
   ): Promise<TDocument> {
+    function formatWithMilliseconds(date: Date): string {
+      const day = date.getDate().toString().padStart(2, '0');
+      const month = (date.getMonth() + 1).toString().padStart(2, '0');
+      const year = date.getFullYear();
+      const hours = date.getHours().toString().padStart(2, '0');
+      const minutes = date.getMinutes().toString().padStart(2, '0');
+      const seconds = date.getSeconds().toString().padStart(2, '0');
+      const milliseconds = date.getMilliseconds().toString().padStart(3, '0');
+
+      return `${day}/${month}/${year} ${hours}:${minutes}:${seconds}.${milliseconds}`;
+    }
+
+    const now = new Date();
+    const formattedDateTime = formatWithMilliseconds(now);
     const createdDocument = new this.model({
       ...document,
       _id: new Types.ObjectId(),
+      criadoEm: formattedDateTime,
+      modificadoEm: formattedDateTime,
+      acessadoEm: formattedDateTime,
     });
     return (
       await createdDocument.save(options)
@@ -31,6 +48,11 @@ export abstract class AbstractRepository<TDocument extends AbstractDocument> {
   }
 
   async findOne(filterQuery: FilterQuery<TDocument>): Promise<TDocument> {
+    const updateQuery: UpdateQuery<TDocument> = {
+      $set: { acessadoEm: new Date() },
+    };
+    await this.model.updateOne(filterQuery, updateQuery);
+
     const document = await this.model.findOne(filterQuery, {}, { lean: true });
 
     if (!document) {
@@ -44,7 +66,9 @@ export abstract class AbstractRepository<TDocument extends AbstractDocument> {
   async findOneAndUpdate(
     filterQuery: FilterQuery<TDocument>,
     update: UpdateQuery<TDocument>,
-  ) {
+  ): Promise<TDocument> {
+    update['$set'] = { ...update['$set'], modificadoEm: new Date() };
+
     const document = await this.model.findOneAndUpdate(filterQuery, update, {
       lean: true,
       new: true,
@@ -71,6 +95,17 @@ export abstract class AbstractRepository<TDocument extends AbstractDocument> {
 
   async find(filterQuery: FilterQuery<TDocument>) {
     return this.model.find(filterQuery, {}, { lean: true });
+  }
+
+  async remove(filterQuery: FilterQuery<TDocument>): Promise<void> {
+    const document = await this.model.findOneAndDelete(filterQuery, {
+      lean: true,
+    });
+
+    if (!document) {
+      this.logger.warn(`Document not found with filterQuery:`, filterQuery);
+      throw new NotFoundException('Document not found.');
+    }
   }
 
   async startTransaction() {

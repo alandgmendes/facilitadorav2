@@ -14,4 +14,6 @@ export class CreateProjetoDto {
   fontesPatrocinio?: string;
   userId: string;
   criadoEm: Date;
+  modificadoEm: Date;
+  acessadoEm: Date;
 }

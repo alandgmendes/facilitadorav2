@@ -27,7 +27,7 @@ export class CronogramasService {
     return `This action removes a #${id} cronograma`;
   }
 
-  findByProjetId(projectId: string): Promise<Cronograma> {
-    return this.findByProjetId(projectId);
+  findByProjectId(projectId: string): Promise<Cronograma> {
+    return this.cronogramarepository.findCronogramaByProjectId(projectId);
   }
 }

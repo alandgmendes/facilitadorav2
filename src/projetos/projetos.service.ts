@@ -3,22 +3,27 @@ import { CreateProjetoDto } from './dto/create-projeto.dto';
 import { UpdateProjetoDto } from './dto/update-projeto.dto';
 import { ProjetoRepository } from './projetos.repository';
 import mongoose from 'mongoose';
+import { CronogramaRepository } from 'src/cronogramas/cronogramas.repository';
 export type TObjectId = mongoose.ObjectId;
 export const ObjectId = mongoose.Types.ObjectId;
 
 @Injectable()
 export class ProjetosService {
-  constructor(public readonly projetoRepository: ProjetoRepository) {}
+  constructor(
+    public readonly projetoRepository: ProjetoRepository,
+    public readonly cronogramaRepository: CronogramaRepository,
+  ) {}
+
   create(createProjetoDto: CreateProjetoDto) {
-    return this.projetoRepository.upsert(createProjetoDto, createProjetoDto);
+    return this.projetoRepository.create(createProjetoDto);
   }
 
   findAll() {
     return this.projetoRepository.find({});
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} projeto`;
+  findOne(_id: string) {
+    return this.projetoRepository.findOne({ _id });
   }
 
   async findProjectByUserId(userId: string) {
