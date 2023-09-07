@@ -20,7 +20,6 @@ export class AtividadesController {
     return this.atividadesService.create(createAtividadeDto);
   }
 
-
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.atividadesService.findOne(id);
@@ -35,8 +34,8 @@ export class AtividadesController {
   }
 
   @Get('/lista/:cronogramaId')
-  findByCronograma(@Param('id') id: string) {
-    return this.atividadesService.findAtividadesByCronogramaId(id);
+  findByCronograma(@Param('cronogramaId') cronogramaId: string) {
+    return this.atividadesService.findAtividadesByCronogramaId(cronogramaId);
   }
 
   @Delete(':id')

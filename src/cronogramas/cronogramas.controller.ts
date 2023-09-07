@@ -25,13 +25,13 @@ export class CronogramasController {
     return this.cronogramasService.findAll();
   }
 
-  @Get(':id')
+  @Get('/cronograma/:id')
   findOne(@Param('id') id: string) {
     return this.cronogramasService.findOne(+id);
   }
 
-  @Get('/projeto/:projectId')
-  findCronogramaByProjectId(@Param('id') projectId: string) {
+  @Get('/projeto/cronograma/:projectId')
+  findCronogramaByProjectId(@Param('projectId') projectId: string) {
     return this.cronogramasService.findByProjectId(projectId);
   }
 

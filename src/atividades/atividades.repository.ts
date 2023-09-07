@@ -19,6 +19,9 @@ export class AtividadesRepository extends AbstractRepository<Atividade> {
   ): Promise<Atividade[]> {
     try {
       const atividades = await this.find({ cronogramaId: cronogramaId });
+      console.log(cronogramaId);
+      console.log(atividades);
+      console.log('these are the dat au looking for');
       return atividades;
     } catch (error) {
       throw error;

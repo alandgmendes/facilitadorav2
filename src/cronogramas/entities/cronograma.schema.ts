@@ -6,7 +6,7 @@ export type TObjectId = mongoose.ObjectId;
 export const ObjectId = mongoose.Types.ObjectId;
 @Schema({ versionKey: false })
 export class Cronograma extends AbstractDocument {
-  @Prop({ type: ObjectId })
+  @Prop()
   projetoId: string;
 
   @Prop()

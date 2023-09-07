@@ -30,7 +30,9 @@ export class ProjetosController {
       cronograma: {},
       projeto: {},
     };
+    console.log(projeto);
     if (projeto._id) {
+      console.log('projeto criado criando cronograma');
       const cronogramaProj = {
         projetoId: projeto._id.toString(),
         criadoEm: now,
@@ -42,6 +44,7 @@ export class ProjetosController {
       );
       data.cronograma = cronogramaSaved;
       data.projeto = projeto;
+      console.log(data);
       return data;
     }
   }
