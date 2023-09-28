@@ -21,30 +21,15 @@ export abstract class AbstractRepository<TDocument extends AbstractDocument> {
     document: Omit<TDocument, '_id'>,
     options?: SaveOptions,
   ): Promise<TDocument> {
-    function formatWithMilliseconds(date: Date): string {
-      const day = date.getDate().toString().padStart(2, '0');
-      const month = (date.getMonth() + 1).toString().padStart(2, '0');
-      const year = date.getFullYear();
-      const hours = date.getHours().toString().padStart(2, '0');
-      const minutes = date.getMinutes().toString().padStart(2, '0');
-      const seconds = date.getSeconds().toString().padStart(2, '0');
-      const milliseconds = date.getMilliseconds().toString().padStart(3, '0');
-
-      return `${day}/${month}/${year} ${hours}:${minutes}:${seconds}.${milliseconds}`;
-    }
-
     const now = new Date();
-    const formattedDateTime = formatWithMilliseconds(now);
     const createdDocument = new this.model({
       ...document,
       _id: new Types.ObjectId(),
-      criadoEm: formattedDateTime,
-      modificadoEm: formattedDateTime,
-      acessadoEm: formattedDateTime,
+      criadoEm: now,
+      modificadoEm: now,
+      acessadoEm: now,
     });
-    return (
-      await createdDocument.save(options)
-    ).toJSON() as unknown as TDocument;
+    return await createdDocument.save(options);
   }
 
   async findOne(filterQuery: FilterQuery<TDocument>): Promise<TDocument> {
