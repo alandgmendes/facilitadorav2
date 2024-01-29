@@ -19,6 +19,7 @@ export class AuthController {
   @HttpCode(HttpStatus.OK)
   @Post('login')
   signIn(@Body() signInDto: Record<string, any>) {
+    console.log(signInDto);
     return this.authService.signIn(signInDto.email, signInDto.senha);
   }
 
@@ -28,4 +29,4 @@ export class AuthController {
     return `This action returns a #${params.id} cat`;
   }
 }
-//git test
+

@@ -12,6 +12,7 @@ import { CreateProjetoDto } from './dto/create-projeto.dto';
 import { UpdateProjetoDto } from './dto/update-projeto.dto';
 import { CronogramasService } from 'src/cronogramas/cronogramas.service';
 import mongoose from 'mongoose';
+import { OrcamentosService } from 'src/orcamentos/orcamentos.service';
 export type TObjectId = mongoose.ObjectId;
 export const ObjectId = mongoose.Types.ObjectId;
 
@@ -20,6 +21,7 @@ export class ProjetosController {
   constructor(
     private readonly projetosService: ProjetosService,
     private readonly cronogramasService: CronogramasService,
+    private readonly orcamentoService: OrcamentosService,
   ) {}
 
   @Post('/register')
@@ -29,10 +31,11 @@ export class ProjetosController {
     const data = {
       cronograma: {},
       projeto: {},
+      orcamento: {},
     };
     console.log(projeto);
     if (projeto._id) {
-      console.log('projeto criado criando cronograma');
+      console.log('projeto criado, criando cronograma');
       const cronogramaProj = {
         projetoId: projeto._id.toString(),
         criadoEm: now,
@@ -42,8 +45,16 @@ export class ProjetosController {
       const cronogramaSaved = await this.cronogramasService.create(
         cronogramaProj,
       );
+      const orcamentoProj = {
+        projetoId: projeto._id.toString(),
+        criadoEm: now,
+        modificadoEm: now,
+        acessadoEm: now,
+      };
+      const orcamentoSaved = await this.orcamentoService.create(orcamentoProj);
       data.cronograma = cronogramaSaved;
       data.projeto = projeto;
+      data.orcamento = orcamentoSaved;
       console.log(data);
       return data;
     }

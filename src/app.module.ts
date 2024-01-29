@@ -8,6 +8,8 @@ import { PessoasModule } from './pessoas/pessoas.module';
 import { ProjetosModule } from './projetos/projetos.module';
 import { CronogramasModule } from './cronogramas/cronogramas.module';
 import { AtividadesModule } from './atividades/atividades.module';
+import { RubricasModule } from './rubricas/rubricas.module';
+import { OrcamentosModule } from './orcamentos/orcamentos.module';
 
 @Module({
   imports: [
@@ -18,6 +20,8 @@ import { AtividadesModule } from './atividades/atividades.module';
     ProjetosModule,
     CronogramasModule,
     AtividadesModule,
+    RubricasModule,
+    OrcamentosModule,
   ],
   controllers: [AppController],
   providers: [AppService],

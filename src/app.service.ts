@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import puppeteer from 'puppeteer';
 import fs from 'fs';
+import { enums } from './enums';
 
 @Injectable()
 export class AppService {
@@ -55,5 +56,9 @@ export class AppService {
       data,
     };
     return resp;
+  }
+
+  getEnums(): Promise<any> {
+    return Promise.resolve(enums);
   }
 }

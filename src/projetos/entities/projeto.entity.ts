@@ -38,7 +38,7 @@ export class Projeto extends AbstractDocument {
 
   @Prop()
   userId: string;
-  
+
   @Prop()
   criadoEm: Date;
 

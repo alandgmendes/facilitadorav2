@@ -9,10 +9,7 @@ export const ObjectId = mongoose.Types.ObjectId;
 
 @Injectable()
 export class ProjetosService {
-  constructor(
-    public readonly projetoRepository: ProjetoRepository,
-    public readonly cronogramaRepository: CronogramaRepository,
-  ) {}
+  constructor(public readonly projetoRepository: ProjetoRepository) {}
 
   create(createProjetoDto: CreateProjetoDto) {
     return this.projetoRepository.create(createProjetoDto);

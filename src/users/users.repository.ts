@@ -16,10 +16,13 @@ export class UsersRepository extends AbstractRepository<User> {
   }
 
   async findUserByEmail(email: string): Promise<User> {
+    console.log('tentou aqui');
     try {
       const user = await this.findOne({ email });
+      console.log(user);
       return user;
     } catch (error) {
+      console.log('no user');
       throw error;
     }
   }

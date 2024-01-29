@@ -19,6 +19,9 @@ export class Atividade extends AbstractDocument {
   periodoFinal: string;
 
   @Prop()
+  etapa: string;
+
+  @Prop()
   criadoEm: Date;
 
   @Prop()

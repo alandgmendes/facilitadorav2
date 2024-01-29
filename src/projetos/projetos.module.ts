@@ -10,6 +10,9 @@ import { ProjetoRepository } from './projetos.repository';
 import { CronogramasService } from 'src/cronogramas/cronogramas.service';
 import { CronogramaRepository } from 'src/cronogramas/cronogramas.repository';
 import { CronogramaSchema } from 'src/cronogramas/entities/cronograma.schema';
+import { OrcamentosService } from 'src/orcamentos/orcamentos.service';
+import { OrcamentoRepository } from 'src/orcamentos/orcamentos.repository';
+import { OrcamentoSchema } from 'src/orcamentos/entities/orcamento.schema';
 
 @Module({
   imports: [
@@ -25,6 +28,7 @@ import { CronogramaSchema } from 'src/cronogramas/entities/cronograma.schema';
     MongooseModule.forFeature([
       { name: 'Projeto', schema: ProjetoSchema },
       { name: 'Cronograma', schema: CronogramaSchema },
+      { name: 'Orcamento', schema: OrcamentoSchema },
     ]),
   ],
   controllers: [ProjetosController],
@@ -33,6 +37,8 @@ import { CronogramaSchema } from 'src/cronogramas/entities/cronograma.schema';
     ProjetoRepository,
     CronogramasService,
     CronogramaRepository,
+    OrcamentosService,
+    OrcamentoRepository,
   ],
 })
 export class ProjetosModule {}
